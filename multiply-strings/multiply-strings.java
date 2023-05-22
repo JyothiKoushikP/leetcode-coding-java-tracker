@@ -6,46 +6,28 @@ class Solution {
 
         int m = num1.length(), n = num2.length();
         int[] product = new int[m + n];
-        int pointer = (m + n) - 1;
-        int op = pointer;
-        int carry = 0;
 
         for (int i = m - 1; i >= 0; i--) {
             int x = num1.charAt(i) - '0';
-            carry = 0;
             for (int j = n - 1; j >= 0; j--) {
                 int y = num2.charAt(j) - '0';
-                int pro = (x * y) + carry;
+                int prod = x * y;
 
-                if (j == 0) {
-                    while (pro != 0) {
-                        product[op] += pro % 10;
-                        pro /= 10;
-                        op--;
-                    }
-                } else {
-                    product[op] += pro % 10;
-                    carry = pro / 10;
-                    op--;
-                }
+                int p1 = i + j; // index for the higher digit of the product
+                int p2 = i + j + 1; // index for the lower digit of the product
+
+                int sum = prod + product[p2]; // current sum at the lower digit index
+                product[p1] += sum / 10; // carry-over to the higher digit index
+                product[p2] = sum % 10; // update the lower digit index
+
             }
-            pointer--;
-            op = pointer;
-        }
-
-        carry = 0;
-        for (int i = (m + n) - 1; i >= 0; i--) {
-            int e = product[i];
-            product[i] = (e + carry) % 10;
-            carry = (e + carry) / 10;
         }
 
         StringBuilder result = new StringBuilder();
-
-        op = (product[0] == 0) ? 1 : 0;
-
-        for (int i = op; i < product.length; i++) {
-            result.append(Integer.toString(product[i]));
+        for (int digit : product) {
+            if (!(result.length() == 0 && digit == 0)) {
+                result.append(digit);
+            }
         }
 
         return result.toString();
