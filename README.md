@@ -4,7 +4,9 @@ I am using the LeetSync Extension to keep track of my coding journey. All the pr
 
 ## Programming Languages / Frameworks :
 
+ ``` bash
 Java
+```
 
 ## Contributions :
 
