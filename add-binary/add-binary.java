@@ -25,19 +25,8 @@ class Solution {
             int x = l1 >= 0 ? a.charAt(l1) - '0' : 0;
             int y = l2 >= 0 ? b.charAt(l2) - '0' : 0;
             int sum = x + y + carry;
-            if(sum == 0) {
-                res.insert(0,'0');
-                carry = 0;
-            } else if (sum == 1) {
-                res.insert(0,'1');
-                carry = 0;
-            } else if (sum == 2) {
-                res.insert(0,'0');
-                carry = 1;
-            } else if (sum == 3) {
-                res.insert(0,'1');
-                carry = 1;
-            }
+            res.insert(0,sum % 2);
+            carry = sum / 2;
             l1--;
             l2--;
         }
