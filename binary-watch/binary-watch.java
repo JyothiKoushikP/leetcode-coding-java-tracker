@@ -12,13 +12,13 @@ class Solution {
                 if(hours[i] == h) {
                     for(int j = 0; j < minutes.length; j++) {
                         if(minutes[j] == m) {
-                            String res = "";
-                            if((Integer.toString(j)).length() == 1) {
-                                res = Integer.toString(i) + ":0" + Integer.toString(j);
+                            StringBuilder res = new StringBuilder();
+                            if (Integer.toString(j).length() == 1) {
+                                res.append(Integer.toString(i)).append(":0").append(Integer.toString(j));
                             } else {
-                                res = Integer.toString(i) + ":" + Integer.toString(j);
+                                res.append(Integer.toString(i)).append(":").append(Integer.toString(j));
                             }
-                            result.add(res);
+                            result.add(res.toString());
                         }
                     }
                 }
