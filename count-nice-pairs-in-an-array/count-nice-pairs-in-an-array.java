@@ -1,45 +1,31 @@
 class Solution {
+    int modulo = 1000000007;
     public int countNicePairs(int[] nums) {
-        int mod=(int)Math.pow(10,9)+7;
+        HashMap<Integer, Integer> result = new HashMap<>();
 
-        //Map to store the number of elements having the same difference.
-        HashMap<Integer,Integer> map=new HashMap<>();
-        for(int i:nums)
-        {
-            Integer diff=diff(i);
-            if(map.containsKey(diff))
-            {
-                int n=map.get(diff);
-                map.put(diff,n+1);
-            }
-            else
-            {
-                map.put(diff,1);
-            }
+        for (int i : nums) {
+            int rev = reverse(i);
+            int diff = i - rev;
+            result.put(diff, result.getOrDefault(diff, 0) + 1);
         }
-        long ans=0;
 
-        //Number of pairs = sum of natural numbers till the number of elements having the same difference
-        for(int i:map.keySet())
-        {
-            long n=map.get(i);
-            ans+=(n*(n-1))/2;
-            ans%=mod;
+        long pairs = 0;
+
+        for (int diff : result.keySet()) {
+            long size = result.get(diff);
+            pairs +=  (size * (size - 1)) / 2;
         }
-        return (int)ans;
+
+        return (int) (pairs % modulo);
     }
 
-    //To calculate the difference between a number and it's reverse
-    int diff(int n)
-    {
-        int a=0;
-        int temp=n;
-        while(temp>0)
-        {
-            a*=10;
-            a+=temp%10;
-            temp/=10;
+    public int reverse(int n) {
+        int res = 0;
+        while (n != 0) {
+            int rem = n % 10;
+            res = (res * 10) + rem;
+            n /= 10;
         }
-        return n-a;
+        return res;
     }
 }
