@@ -1,17 +1,11 @@
 class Solution {
     public void moveZeroes(int[] nums) {
-       int zp = Integer.MIN_VALUE, np = Integer.MIN_VALUE;
+       int zp = 0;
        for(int i = 0; i < nums.length; i++) {
-           if(nums[i] == 0) {
-               if(zp == Integer.MIN_VALUE) {
-                   zp = i;
-               }
-           } else {
-               if(zp != Integer.MIN_VALUE) {
-                   swap(nums,zp,i);
-                   zp++;
-               }
-           }
+            if(nums[i] != 0) {
+                swap(nums,zp,i);
+                zp++;
+            }
        }
     }
 
