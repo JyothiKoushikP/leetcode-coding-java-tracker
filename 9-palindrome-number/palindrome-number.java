@@ -4,13 +4,12 @@ class Solution {
             return false;
         }
         int rev = 0;
-        int original = x;
-        while(x > 0) {
+        while(x > rev) {
             int rem = x%10;
             rev = (rev * 10) + rem;
             x /= 10;
         }
 
-        return (rev == original);
+        return (rev == x) || (x == rev/10);
     }
 }
