@@ -1,46 +1,39 @@
 class Solution {
-    public String longestCommonPrefix(String[] strs) {     
-        if(strs.length == 1) {
-            return strs[0];
-        } 
-
-        StringBuilder res = new StringBuilder();
-        if(strs[0].length() >= strs[1].length()) {
-            res = commonPrefix(strs[1],strs[0]);
-        } else {
-            res = commonPrefix(strs[0],strs[1]);
-        }
-
-        if(res.length() == 0) {
+    public String longestCommonPrefix(String[] strs) {
+        if (strs == null || strs.length == 0) {
             return "";
         }
 
-        for(int i = 1; i < strs.length - 1; i++) {
-            StringBuilder prefix = new StringBuilder();
-            if(strs[i].length() >= strs[i+1].length()) {
-                prefix = commonPrefix(strs[i+1],strs[i]);
+        int minLen = Integer.MAX_VALUE;
+        for (String str : strs) {
+            minLen = Math.min(minLen, str.length());
+        }
+
+        int low = 1;
+        int high = minLen;
+
+        while (low <= high) {
+            int middle = (low + high) / 2;
+            if (isCommonPrefix(strs, middle)) {
+                low = middle + 1;
             } else {
-                prefix = commonPrefix(strs[i],strs[i+1]);
-            }
-            System.out.println(prefix);
-            if(prefix.length() == 0) {
-                return "";
-            }
-            if(res.length() >= prefix.length()) {
-                res = prefix;
+                high = middle - 1;
             }
         }
-        return res.toString();
-    }
 
-    public StringBuilder commonPrefix(String s1, String s2) {
-        int i = 0;
-        StringBuilder s = new StringBuilder();
-        while(i < s1.length() && (s1.charAt(i) == s2.charAt(i))){
-            s.append(s1.charAt(i));
-            i++;
+    return strs[0].substring(0, (low + high) / 2);
+}
+
+private boolean isCommonPrefix(String[] strs, int len) {
+    String prefix = strs[0].substring(0, len);
+    for (int i = 1; i < strs.length; i++) {
+        if (!strs[i].startsWith(prefix)) {
+            return false;
         }
-        return s;
     }
+    return true;
+}
 
+
+    
 }
