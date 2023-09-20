@@ -13,15 +13,11 @@ class Solution {
             pos--;
             System.out.println(Arrays.toString(nums1));
         }
-        if(p1 >= 0) {
-            while(p1 >= 0) {
-                nums1[pos--] = nums1[p1--];
-            }
+        while(p1 >= 0) {
+            nums1[pos--] = nums1[p1--];
         }
-        if(p2 >= 0) {
-            while(p2 >= 0) {
-                nums1[pos--] = nums2[p2--];
-            }
+        while(p2 >= 0) {
+            nums1[pos--] = nums2[p2--];
         }
     }
 }
