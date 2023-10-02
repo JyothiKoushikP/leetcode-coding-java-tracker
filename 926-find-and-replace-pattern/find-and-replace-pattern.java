@@ -10,8 +10,8 @@ class Solution {
     }
 
     public boolean isMatching(String word, String pattern) {
-        char[] wordToPattern = new char[256];
-        char[] patternToWord = new char[256];
+        char[] wordToPattern = new char[26];
+        char[] patternToWord = new char[26];
         if(word.length() != pattern.length()) {
             return false;
         }
