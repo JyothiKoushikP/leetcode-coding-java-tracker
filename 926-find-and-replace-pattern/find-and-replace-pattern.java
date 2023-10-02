@@ -10,23 +10,22 @@ class Solution {
     }
 
     public boolean isMatching(String word, String pattern) {
-        HashMap<Character,Character> map = new HashMap();
-        HashMap<Character,Character> map2 = new HashMap();
+        char[] wordToPattern = new char[256];
+        char[] patternToWord = new char[256];
         if(word.length() != pattern.length()) {
             return false;
         }
         for(int i = 0; i < word.length(); i++) {
             char ch = word.charAt(i);
             char c = pattern.charAt(i);
-
-            if(map.containsKey(c) && map.get(c) != ch) {
+            if(wordToPattern[ch-'a'] != 0 && wordToPattern[ch-'a'] != c) {
                 return false;
             }
-            if(map2.containsKey(ch) && map2.get(ch) != c) {
+            if(patternToWord[c-'a'] != 0 && patternToWord[c-'a'] != ch) {
                 return false;
             }
-            map.put(c,ch);
-            map2.put(ch,c);
+            wordToPattern[ch-'a'] = c;
+            patternToWord[c-'a'] = ch;
         }
 
         return true;
