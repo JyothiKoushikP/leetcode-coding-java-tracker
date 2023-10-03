@@ -7,9 +7,6 @@ class Solution {
             return new int[] {-1, -1};
         }
         int secondOccurence = binarySearch(nums,target,false,0,n-1);
-        if(secondOccurence == -1) {
-            return new int[] {firstOccurence,firstOccurence};
-        }
         return new int[] {firstOccurence, secondOccurence};
     }
 
