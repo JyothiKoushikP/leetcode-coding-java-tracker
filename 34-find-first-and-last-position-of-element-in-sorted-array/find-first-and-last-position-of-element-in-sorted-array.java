@@ -16,22 +16,14 @@ class Solution {
             int mid = start + (end-start)/2;
             if(arr[mid] == target) {
                 if(isFirstIndex) {
-                    if(mid > 0) {
-                        if(arr[mid - 1] == target) {
-                            end = mid - 1;
-                        } else {
-                            return mid;
-                        }
+                    if(mid > 0 && arr[mid - 1] == target) {
+                        end = mid - 1;
                     } else {
                         return mid;
                     }
                 } else {
-                    if(mid < n-1 ){
-                        if(arr[mid + 1] == target) {
-                            start = mid + 1;
-                        } else {
-                            return mid;
-                        }
+                    if(mid < n-1 && arr[mid + 1] == target ){
+                        start = mid + 1;
                     } else {
                         return mid;
                     }
