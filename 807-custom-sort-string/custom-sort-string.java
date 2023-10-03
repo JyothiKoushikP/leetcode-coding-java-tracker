@@ -9,8 +9,9 @@ class Solution {
 
         for(char ch: order.toCharArray()) {
             int x = freq[ch - 'a'];
-            for(int i = 0; i < x; i++) {
+            while (x > 0) {
                 sb.append(ch);
+                x--;
             }
             freq[ch - 'a'] = 0;
         }
@@ -18,8 +19,9 @@ class Solution {
         for(int i = 0; i < freq.length; i++) {
             if(freq[i] != 0) {
                 char ch = (char)(i + 'a');
-                for(int j = 0;j < freq[i]; j++) {
+                while(freq[i] > 0) {
                     sb.append(ch);
+                    freq[i]--;
                 }
             }
         }
