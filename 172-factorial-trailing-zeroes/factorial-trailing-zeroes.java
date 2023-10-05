@@ -5,8 +5,12 @@ class Solution {
         }
         int twoCount = 0, fiveCount = 0;
         for(int i = 1; i <= n; i++) {
-            twoCount += getFactorCount(i,2);
-            fiveCount += getFactorCount(i,5);
+            if(i % 2 == 0){
+                twoCount += getFactorCount(i,2);
+            }
+            if(i % 5 == 0){
+                fiveCount += getFactorCount(i,5);
+            }
         }
 
         if(twoCount == 0 || fiveCount == 0) {
