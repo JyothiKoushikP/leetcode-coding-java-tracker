@@ -21,7 +21,6 @@ class Solution {
 
     public int getFactorCount(int n, int x) {
         int count = 0;
-        if(n % x != 0) return 0;
         while(n % x == 0) {
             count++;
             n /= x;
