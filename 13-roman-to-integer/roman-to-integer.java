@@ -1,25 +1,26 @@
 class Solution {
     public int romanToInt(String s) {
+        HashMap<Character,Integer> romanMap = new HashMap();
+        romanMap.put('0',0);
+        romanMap.put('I',1);
+        romanMap.put('V',5);
+        romanMap.put('X',10);
+        romanMap.put('L',50);
+        romanMap.put('C',100);
+        romanMap.put('D',500);
+        romanMap.put('M',1000);
+
         int sum = 0;
-        Map<Character,Integer> roman = new HashMap();
-        roman.put('@',0);
-        roman.put('I',1);
-        roman.put('V',5);
-        roman.put('X',10);
-        roman.put('L',50);
-        roman.put('C',100);
-        roman.put('D',500);
-        roman.put('M',1000);
-
-        char prev = '@';
-
-        for(int i = s.length()-1; i>=0 ;i--) {
-            if(roman.get(s.charAt(i)) < roman.get(prev)) {
-                sum -= roman.get(s.charAt(i));
+        char lastChar = '0';
+        int n = s.length();
+        for(int i = n - 1; i>= 0; i--) {
+            char ch = s.charAt(i);
+            if(romanMap.get(ch) >= romanMap.get(lastChar)){
+                sum += romanMap.get(ch);
             } else {
-                sum += roman.get(s.charAt(i));
+                sum -= romanMap.get(ch);
             }
-            prev = s.charAt(i);
+            lastChar = ch;
         }
 
         return sum;
