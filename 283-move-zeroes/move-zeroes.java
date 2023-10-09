@@ -4,7 +4,7 @@ class Solution {
             return;
         }
         int p1 = 0, p2 = 1, n = nums.length;
-        while(p1 < n && p2 < n) {
+        while(p2 < n) {
             if(nums[p1] == 0) {
                 if(nums[p2] != 0) {
                     swap(nums,p1,p2);
