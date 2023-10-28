@@ -13,7 +13,7 @@ class Solution {
             }
         }
         if(h == -1) {
-            h = 0;
+            return false;
         }
         return binarySearch(matrix, h, target);
     }
