@@ -1,30 +1,21 @@
 class Solution {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        int currentSum = 0;
+        List<List<Integer>> result = new ArrayList();
         List<Integer> processed = new ArrayList<>();
-        List<List<Integer>> result = combinationSum(0,candidates,processed,target,currentSum);
+        combinationSum(candidates,0,0,target,result, processed);
         return result;
     }
 
-    public static List<List<Integer>> combinationSum(int startPointer,int[] candidates, List<Integer> processed, int targetSum, int currentSum) {
-        List<List<Integer>> result = new ArrayList<>();
-        if(currentSum > targetSum || currentSum + 1 == targetSum) {
-            return result;
-        }
-        if(currentSum == targetSum) {
+   public void combinationSum(int[] input, int startPointer, int currentSum,int targetSum,List<List<Integer>> result, List<Integer> processed) {
+        if(currentSum > targetSum) return;
+        if(currentSum == targetSum){
             result.add(processed);
-            return result;
+            return;
         }
-
-        List<List<Integer>> total = new ArrayList<>();
-        for(int i = startPointer; i < candidates.length; i++) {
-            int sum = currentSum;
+        for(int i = startPointer; i < input.length; i++) {
             List<Integer> p = new ArrayList<>(processed);
-            sum += candidates[i];
-            p.add(candidates[i]);
-            total.addAll(combinationSum(i,candidates,p,targetSum,sum));
+            p.add(input[i]);
+            combinationSum(input,i,currentSum + input[i],targetSum,result,p);
         }
-
-        return total;
     }
 }
