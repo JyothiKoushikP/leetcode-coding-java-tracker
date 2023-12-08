@@ -24,7 +24,7 @@ class Solution {
                 end = mid;
             }
         }
-        return start;
+        return end;
     }
 
     public int binarySearch(int[] nums, int target, int start, int end) {
