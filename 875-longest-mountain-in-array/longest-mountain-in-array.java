@@ -8,16 +8,13 @@ class Solution {
                 while(j < arr.length - 1 && arr[j] < arr[j+1]) {
                     j++;
                 }
-                boolean didTurn = false;
+                int peek = j;
                 while(j < arr.length - 1 && arr[j] > arr[j+1]) {
-                    didTurn = true;
                     j++;
                 }
-                if(didTurn) {
+                if(i < peek && peek < j) {
                     maxLen = Math.max(maxLen,(j - i) + 1);
-                } else {
-                    maxLen = Math.max(maxLen,0);
-                }
+                } 
                 i = j;
             } else {
                 i++;
