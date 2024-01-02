@@ -75,8 +75,8 @@ class Solution {
             for(int[] interval: intervals){
                 if(interval[0] != Integer.MIN_VALUE) {
                     newArray[i][0] = interval[0];
-                    newArray[i][1] = interval[1];
-                    i++;
+                    newArray[i++][1] = interval[1];
+                    
                 }
             }
             return newArray;
