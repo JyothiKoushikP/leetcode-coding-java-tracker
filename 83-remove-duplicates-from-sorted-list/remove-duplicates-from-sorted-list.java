@@ -10,18 +10,29 @@
  */
 class Solution {
     public ListNode deleteDuplicates(ListNode head) {
-        return deleteDuplicatesR(head,head);
-    }
-
-    public ListNode deleteDuplicatesR(ListNode head, ListNode currentNode) {
-        if(currentNode == null || currentNode.next == null) {
+        if(head == null) {
             return head;
         }
-        if(currentNode.val == currentNode.next.val) {
-            currentNode.next = currentNode.next.next;
-            return deleteDuplicatesR(head,currentNode);
-        } else {
-            return deleteDuplicatesR(head,currentNode.next);
+        ListNode node = head;
+        while(node.next != null) {
+            if(node.val == node.next.val) {
+                node.next = node.next.next;
+            } else {
+                node = node.next;
+            }
         }
+        return head;
     }
+
+    // public ListNode deleteDuplicatesR(ListNode head, ListNode currentNode) {
+    //     if(currentNode == null || currentNode.next == null) {
+    //         return head;
+    //     }
+    //     if(currentNode.val == currentNode.next.val) {
+    //         currentNode.next = currentNode.next.next;
+    //         return deleteDuplicatesR(head,currentNode);
+    //     } else {
+    //         return deleteDuplicatesR(head,currentNode.next);
+    //     }
+    // }
 }
