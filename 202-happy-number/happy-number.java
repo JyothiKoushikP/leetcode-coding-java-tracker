@@ -1,27 +1,23 @@
 class Solution {
     public boolean isHappy(int n) {
-        HashSet<Long> res = new HashSet();
-        boolean isHappy = false;
-        long num = n;
-        res.add(num);
-        while(!isHappy) {
-            long r = getHappyNumber(num);
-            if(r == 1L) {
-                isHappy = true;
-            } else {
-                if(res.contains(r)) break;
-                res.add(r);
-                num = r;
-            }
-        }
+        int slow = n;
+        int fast = n;
 
-        return isHappy;
+        do {
+            slow = getHappyNumber(slow);
+            fast = getHappyNumber(getHappyNumber(fast));
+        } while (slow != fast);
+
+        if(slow == 1) {
+            return true;
+        }
+        return false;
     }
 
-    public long getHappyNumber(long n) {
-        long result = 0L;
+    public int getHappyNumber(int n) {
+        int result = 0;
         while(n > 0) {
-            long rem = n % 10;
+            int rem = n % 10;
             result += Math.pow(rem,2);
             n /= 10;
         }
