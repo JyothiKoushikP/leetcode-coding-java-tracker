@@ -6,12 +6,9 @@ class Solution {
         do {
             slow = getHappyNumber(slow);
             fast = getHappyNumber(getHappyNumber(fast));
-        } while (slow != fast);
+        } while (fast != 1 && slow != fast);
 
-        if(slow == 1) {
-            return true;
-        }
-        return false;
+        return fast == 1;
     }
 
     public int getHappyNumber(int n) {
