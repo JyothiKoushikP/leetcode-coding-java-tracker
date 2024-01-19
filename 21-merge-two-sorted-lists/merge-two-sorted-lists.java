@@ -17,13 +17,12 @@ class Solution {
                 ListNode v = new ListNode(list1.val);
                 dummy.next = v;
                 list1 = list1.next;
-                dummy = dummy.next;
             } else {
                  ListNode v = new ListNode(list2.val);
                  dummy.next = v;
                  list2 = list2.next;
-                 dummy = dummy.next;
             }
+            dummy = dummy.next;
         }
         dummy.next = (list1 != null) ? list1 : list2;
         return head.next;
