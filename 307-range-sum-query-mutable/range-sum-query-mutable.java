@@ -1,78 +1,69 @@
-class NumArray {
+public class NumArray {
+    int[] tree;
+    int[] nums;
 
-    class Node {
-        int start;
-        int end;
-        int data;
-        Node left;
-        Node right;
-
-        public Node(int start, int end) {
-            this.start = start;
-            this.end = end;
-        }
+    NumArray(int[] nums) {
+        this.nums = nums;
+        this.tree = new int[4 * nums.length];
+        buildSumQueryTree(1, 0, nums.length - 1);
     }
 
-    Node root;
-    
-    public NumArray(int[] nums) {
-        root = constructTree(nums, 0, nums.length-1);
-    }
-
-    public Node constructTree(int[] nums, int start, int end) {
-        if(start == end) {
-            Node leaf = new Node(start,end);
-            leaf.data = nums[start];
-            return leaf;
+    public void buildSumQueryTree(int node, int lo, int hi) {
+        if(lo == hi) {
+            tree[node] = nums[lo];
+            return;
         }
-        Node newNode = new Node(start,end);
-        int mid = (start + end) / 2;
-        newNode.left = constructTree(nums, start, mid);
-        newNode.right = constructTree(nums,mid + 1,end);
-        newNode.data = newNode.left.data + newNode.right.data;
-        return newNode;
+        int leftNode = 2 * node;
+        int rightNode = 2 * node + 1;
+        int mid = lo + (hi - lo) / 2;
+
+        buildSumQueryTree(leftNode, lo, mid);
+        buildSumQueryTree(rightNode, mid + 1, hi);
+
+        tree[node] = tree[leftNode] + tree[rightNode];
     }
 
     public void update(int index, int val) {
-        root.data = updateTree(root,index,val);
+        update(1, 0, nums.length - 1, index, val);
     }
-
-    public int updateTree(Node root, int index, int val) {
-        if(index >= root.start && index <= root.end) {
-            if(index == root.start && index == root.end) {
-                root.data = val;
-                return root.data;
-            } else {
-            int leftAns = updateTree(root.left, index, val);
-            int rightAns = updateTree(root.right, index, val);
-            root.data = leftAns + rightAns;
-            return root.data;
-            }
+    private void update(int node, int lo, int hi, int index, int val) {
+        if(lo == hi) {
+            nums[lo] = val;
+            tree[node] = val;
+            return;
         }
-        return root.data;
+
+        int leftNode = 2 * node;
+        int rightNode = 2 * node + 1;
+        int mid = lo + (hi - lo) / 2;
+
+        if(index <= mid)
+            update(leftNode, lo, mid, index, val);
+        else
+            update(rightNode, mid + 1, hi, index, val);
+
+        tree[node] = tree[leftNode] + tree[rightNode];
+
     }
-    
     public int sumRange(int left, int right) {
-        return query(root,left,right);
+        return sumRange(1, 0, nums.length - 1, left, right);
     }
 
-    public int query(Node node, int left, int right) {
-        if(node.start >= left && node.end <= right) {
-            return node.data;
-        } else if(node.start > right || node.end < left) {
+    private int sumRange(int node, int lo, int hi, int ql, int qr) {
+        if(hi < ql || lo > qr)
             return 0;
-        } else {
-            int leftSum = query(node.left, left, right);
-            int rightSum = query(node.right, left, right);
-            return leftSum + rightSum;
-        }
+        if(lo == hi)
+            return tree[node];
+        if(lo >= ql && hi <= qr)
+            return tree[node];
+
+        int leftNode = 2 * node;
+        int rightNode = 2 * node + 1;
+        int mid = lo + (hi - lo) / 2;
+
+        int leftSum = sumRange(leftNode, lo, mid, ql, qr);
+        int rightSum = sumRange(rightNode, mid + 1, hi, ql, qr);
+
+        return leftSum + rightSum;
     }
-
 }
-
-/**
- * Your NumArray object will be instantiated and called as such:
- * NumArray obj = new NumArray(nums);
- * obj.update(index,val);
- * int param_2 = obj.sumRange(left,right);
- */
