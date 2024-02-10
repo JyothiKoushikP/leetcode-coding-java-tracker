@@ -7,32 +7,24 @@ class MinStack {
     }
     
     public void push(int val) {
-        int currentMin = getMin();
-        if(val < currentMin) {
+        if(minStack.isEmpty()) {
             minStack.push(new int[]{val,val});
-        } else {
-            minStack.push(new int[]{val,currentMin});
+            return;
         }
+        int currentMin = getMin();
+        minStack.push(new int[]{val,Math.min(currentMin,val)});
     }
     
     public void pop() {
-        if(!minStack.isEmpty()) {
-            minStack.pop();
-        }
+        minStack.pop();
     }
     
     public int top() {
-        if(!minStack.isEmpty()) {
-            return minStack.peek()[0];
-        }
-        return 0;
+        return minStack.peek()[0];
     }
     
     public int getMin() {
-        if(!minStack.isEmpty()) {
-            return minStack.peek()[1];
-        }
-        return Integer.MAX_VALUE;
+        return minStack.peek()[1];
     }
 }
 
