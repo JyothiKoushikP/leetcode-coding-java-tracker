@@ -1,10 +1,11 @@
 class Solution {
     public String longestPalindrome(String s) {
         StringBuilder res = new StringBuilder();
+        int maxLeft = 0, maxRight = 0;
+        int maxLength = 0;
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
-            StringBuilder subString1 = new StringBuilder();
-            StringBuilder subString2 = new StringBuilder();
+
 
             // check for odd palindrome
             int left = i - 1, right = i + 1;
@@ -13,8 +14,10 @@ class Solution {
                 right++;
             }
 
-            for(int k = left + 1; k < right; k++) {
-                subString1.append(s.charAt(k));
+            if(right - left - 1 > maxLength) {
+                maxLeft = left + 1;
+                maxRight = right - 1;
+                maxLength = right - left - 1;
             }
 
 
@@ -26,19 +29,15 @@ class Solution {
                     left--;
                     right++;
                 }
-                for(int k = left + 1; k < right; k++) {
-                    subString2.append(s.charAt(k));
+                if(right - left - 1 > maxLength) {
+                    maxLeft = left + 1;
+                    maxRight = right - 1;
+                    maxLength = right - left - 1;
                 }
-            } else {
-                subString2.append(c);
             }
-
-            if (res.length() < subString1.length()) {
-                res = subString1;
-            }
-            if (res.length() < subString2.length()) {
-                res = subString2;
-            }
+        }
+        for(int i = maxLeft; i <= maxRight; i++) {
+            res.append(s.charAt(i));
         }
         return res.toString();
     }
