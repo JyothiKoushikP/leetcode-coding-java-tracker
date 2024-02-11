@@ -13,7 +13,7 @@ class Solution {
         int carry = 0;
         ListNode prev = null;
         ListNode fn = l1, sn = l2;
-        while(fn != null || sn != null) {
+        while(fn != null || sn != null || carry != 0) {
             int fv = fn != null ? fn.val : 0;
             int sv = sn != null ? sn.val : 0;
             int value = (fv + sv + carry) % 10;
@@ -30,10 +30,6 @@ class Solution {
             if(fn != null) {
                 fn = fn.next;
             }
-        }
-        if(carry != 0) {
-            ListNode node = new ListNode(carry);
-            prev.next = node;
         }
         return l2;
     }
