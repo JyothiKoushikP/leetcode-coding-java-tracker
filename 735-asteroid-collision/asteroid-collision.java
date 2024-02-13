@@ -5,10 +5,10 @@ public static int[] asteroidCollision(int[] asteroids) {
             if(collision.isEmpty()) {
                 collision.push(i);
             } else {
-                int top = collision.peek();
                 boolean didExplode = false;
 
-                while(top != -1 && !didExplode && (isPositive(top) && isNegative(i)))  {
+                while(!collision.isEmpty() && !didExplode && (isPositive(collision.peek()) && isNegative(i)))  {
+                    int top = collision.peek();
                     if(didExplode) break;
                     if(Math.abs(top) > Math.abs(i)) {
                         didExplode = true;
@@ -19,7 +19,6 @@ public static int[] asteroidCollision(int[] asteroids) {
                         collision.pop();
                         didExplode = true;
                     }
-                    top = collision.isEmpty() ? -1 : collision.peek();
                 }
 
                 if(!didExplode) {
