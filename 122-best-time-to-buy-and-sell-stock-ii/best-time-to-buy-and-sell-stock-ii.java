@@ -1,14 +1,13 @@
 class Solution {
     public int maxProfit(int[] prices) {
-        Stack<Integer> stock = new Stack<Integer>();
+        int currentPrice = -1;
         int maxProfit = 0;
         for(int i = 0; i < prices.length; i++) {
-            if(stock.isEmpty()) {
-                stock.push(prices[i]);
+            if(currentPrice == -1) {
+                currentPrice = prices[i];
             } else {
-                int price = stock.pop();
-                maxProfit = maxProfit + ((price < prices[i]) ? (prices[i] - price) : 0);
-                stock.push(prices[i]);
+                maxProfit = maxProfit + ((currentPrice < prices[i]) ? (prices[i] - currentPrice) : 0);
+                currentPrice = prices[i];
             }
         }
         return maxProfit;
