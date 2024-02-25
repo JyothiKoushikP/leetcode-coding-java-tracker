@@ -22,8 +22,8 @@ class Solution {
             if(str.peek() != index) {
                 res.insert(0,s.charAt(str.pop()));
             } else {
-                par.pop();
                 str.pop();
+                par.pop();
             }
         }
         return res.toString();
