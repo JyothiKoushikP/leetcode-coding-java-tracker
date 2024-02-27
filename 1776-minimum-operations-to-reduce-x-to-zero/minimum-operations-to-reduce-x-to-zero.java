@@ -5,9 +5,6 @@ class Solution {
         while(left < nums.length && sum < x) {
             sum += nums[left++];
         }
-        if(left == nums.length) {
-            return (sum == x) ? nums.length : -1;
-        }
         left--;
         if(sum == x) {
             minOperations = Math.min(minOperations,left + 1);
