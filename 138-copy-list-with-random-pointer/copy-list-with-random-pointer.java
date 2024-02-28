@@ -15,35 +15,37 @@ class Node {
 
 class Solution {
     public Node copyRandomList(Node head) {
-        Map<Node,Node> listTrack = new HashMap<>();
-        Map<Integer,Node> indexTrack = new HashMap<>();
-        int count = 0;
-        Node copyList = new Node(-1);
-        Node pointer = copyList;
-        while(head != null) {
-            Node newNode = listTrack.containsKey(head) ? listTrack.get(head) : new Node(head.val);
-            if(head.random == head) {
-                newNode.random = newNode;
-            } else if(listTrack.containsKey(head.random)) {
-                Node old = listTrack.get(head.random);
-                newNode.random = old;
-            } else if(head.random != null) {
-                Node futureNode = new Node(head.random.val);
-                listTrack.put(head.random,futureNode);
-                newNode.random = futureNode;
-            } 
-            if(count != 0) {
-                Node previous = indexTrack.get(count - 1);
-                previous.next = newNode;
-                indexTrack.put(count - 1, previous);
-            }
-            listTrack.put(head,newNode);
-            indexTrack.put(count,newNode);
-            count++;
-            pointer.next = newNode;
-            pointer = pointer.next;
-            head = head.next;
+        Node itr=head;
+    Node front=head;
+    while(itr!=null) //Step 1 for cloning the next Nodes in the original list
+    {
+        front=itr.next;
+        Node copy=new Node(itr.val);
+        itr.next=copy;
+        copy.next=front;
+        itr=front;
+    }
+    itr=head;
+    while(itr!=null) //Step 2 for cloning the random Nodes in the original list
+    {
+        if(itr.random!=null)
+        {
+            itr.next.random=itr.random.next;
         }
-        return copyList.next;
+        itr=itr.next.next;
+    }
+//Step 3 for separating the original and the cloned list.
+    Node dummy=new Node(0);
+    Node cp=dummy;
+    itr=head;
+    while(itr!=null)
+    {
+        front=itr.next.next;
+        cp.next=itr.next;
+        itr.next=front;
+        cp=cp.next;
+        itr=itr.next;
+    }
+    return dummy.next;
     }
 }
