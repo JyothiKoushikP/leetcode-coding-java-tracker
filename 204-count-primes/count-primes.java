@@ -5,7 +5,7 @@ class Solution {
         }
         boolean[] isPrime = new boolean[n];
         Arrays.fill(isPrime,true);
-        for(int i = 2; i < n ; i++) {
+        for(int i = 2; i <= Math.sqrt(n) ; i++) {
             if(isPrime[i]) {
                 int prime = i, k = 2;
                 while((prime * k) < n) {
