@@ -1,3 +1,5 @@
+// TC: O(n)
+// SC: O(n)
 import java.lang.*;
 class Solution {
     public int[] nextGreaterElements(int[] nums) {
