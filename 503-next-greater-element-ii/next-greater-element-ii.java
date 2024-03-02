@@ -21,11 +21,8 @@ class Solution {
                 }
             } 
 
-            if(t.isEmpty()) {
-                res[i] = -1;
-            } else {
-                res[i] = t.peek();
-            }
+            res[i] = (t.isEmpty()) ? -1 : t.peek();
+
             t.push(nums[i]);
         }
         return res;
