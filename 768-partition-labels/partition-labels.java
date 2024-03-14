@@ -1,3 +1,13 @@
+/* 
+TC: O(n)
+SC: O(n) can be done in O(1) if maintained frequency array
+Approach:
+Keep track of element indexes, traverse the right pointer till you get maxLength
+(MaxLength is the maxmimum length a subarray can go)
+*/
+
+
+
 class Solution {
     public List<Integer> partitionLabels(String s) {
         Map<Character,Integer> track = new HashMap();
