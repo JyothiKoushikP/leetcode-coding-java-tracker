@@ -1,6 +1,11 @@
+/*
+TC: O(n)
+SC: O(1)
+Approach: track the min from the 
+*/
+
 class Solution {
     public boolean checkPossibility(int[] nums) {
-        if(nums.length == 0) return true;
         int minVal = nums[nums.length - 1];
         int count1 = 0;
         for(int i = nums.length - 2; i >= 0; i--) {
