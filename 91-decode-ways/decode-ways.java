@@ -1,3 +1,14 @@
+/*
+TC: O(N)
+SC: O(N)
+Dynamic Programming
+Here we store the i-2, i-1 for the pre-computation
+you need to make sure that i-1 element is not zero and ith element is not zero
+Handle the cases:
+Fibonacci: dp[i] += dp[i-1] + dp[i-2]
+*/
+
+
 class Solution {
     public int numDecodings(String s) {
         if(s.charAt(0) == '0') {
