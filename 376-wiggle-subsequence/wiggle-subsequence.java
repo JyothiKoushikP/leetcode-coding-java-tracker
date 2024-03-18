@@ -3,7 +3,10 @@ TC: O(n^2)
 SC: O(n)
 Approach: 
 Maintain 2 arrays positive and negative
-
+p and n, intialize p[0] and n[0]
+start from 1st index and keep the track of the max postive and negative
+p[i] = Math.max(p[i],n[j] + 1);
+n[i] = Math.max(n[i],p[j] + 1);
 */
 
 
@@ -30,11 +33,6 @@ class Solution {
             }
        }
 
-       for(int i = 0; i < nums.length; i++) {
-            maxlen = Math.max(maxlen,p[i]);
-            maxlen = Math.max(maxlen,n[i]);
-       }
-
-       return maxlen + 1;
+       return Math.max(p[p.length-1],n[n.length-1]) + 1;
     }
 }
