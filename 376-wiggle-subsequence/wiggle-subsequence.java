@@ -1,3 +1,12 @@
+/*
+TC: O(n^2)
+SC: O(n)
+Approach: 
+Maintain 2 arrays positive and negative
+
+*/
+
+
 class Solution {
     public int wiggleMaxLength(int[] nums) {
        int[] p = new int[nums.length];
@@ -11,7 +20,7 @@ class Solution {
                 n[1]++;
             }
        }
-       for(int i = 2; i < nums.length; i++) {
+       for(int i = 1; i < nums.length; i++) {
             for(int j = i - 1; j >= 0; j--) {
                 if(nums[i] - nums[j] > 0) {
                     p[i] = Math.max(p[i],n[j] + 1);
