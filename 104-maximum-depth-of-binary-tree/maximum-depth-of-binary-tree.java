@@ -18,21 +18,13 @@ class Solution {
         return recDepth(root, 1);
     }
 
-    public int recDepth(TreeNode root, int level) {
-        if(root == null) {
-            return level - 1;
+    public int recDepth(TreeNode node, int height) {
+        if(node == null) {
+            return height - 1;
         }
-        if(root.left == null && root.right == null) {
-            return level;
-        }
-        int max1 = 0, max2 = 0;
-        if(root.left != null) {
-            max1 = recDepth(root.left, level + 1);
-        }
-        if(root.right != null) {
-            max2 = recDepth(root.right, level + 1);
-        }
+        int leftTreeHeight = recDepth(node.left,height + 1);
+        int rightTreeHeight = recDepth(node.right,height + 1);
 
-        return Math.max(max1,max2);
+        return Math.max(leftTreeHeight,rightTreeHeight);
     }
 }
