@@ -9,7 +9,7 @@ class Solution {
             StringBuilder sb = new StringBuilder();
             for(int num: freq) {
                 sb.append(num);
-                sb.append("-");
+                sb.append("#");
             }
             track.putIfAbsent(sb.toString(),new ArrayList<>());
             track.get(sb.toString()).add(s);
