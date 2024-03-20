@@ -1,14 +1,24 @@
+/*
+
+Linear Search : O(n)
+Binary Search: O(log(n))
+
+*/
+
+
 class Solution {
     public int missingNumber(int[] arr) {
         int n = arr.length;
         int diff = (arr[n-1] - arr[0]) / n;
-        int x = arr[0];
-        for(int i = 0; i < n; i++) {
-            if(x != arr[i]) {
-                return x;
+        int start = 0, end = n - 1;
+        while(start < end) {
+            int mid = start + (end - start)/2;
+            if(arr[mid] == arr[0] + (mid * diff)) {
+                start = mid + 1;
+            } else {
+                end = mid;
             }
-            x += diff;
         }
-        return x;
+        return arr[0] + (end * diff);
     }
 }
