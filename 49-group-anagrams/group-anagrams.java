@@ -4,7 +4,7 @@ class Solution {
         Map<String, List> ans = new HashMap<String, List>();
         int[] count = new int[26];
         for (String s : strs) {
-            Arrays.fill(count, 0);
+            Arrays.fill(count,0);
             for (char c : s.toCharArray()) count[c - 'a']++;
 
             StringBuilder sb = new StringBuilder("");
