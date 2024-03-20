@@ -1,17 +1,10 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        track = {}
-        for i in range(len(strs)):
+        track = collections.defaultdict(list)
+        for s in strs:
             freq = [0] * 26
-            for j in range(0,len(strs[i])):
-                index = ord(strs[i][j]) - ord('a')
-                freq[index] += 1
-            freqString = ""
-            for j in range(0,len(freq)):
-                freqString += str(freq[j])
-                freqString += "#"
-            if not freqString in track:
-                track[freqString] = []
-            track[freqString].append(strs[i])
+            for c in s:
+                freq[ord(c) - ord('a')] += 1
+            track[tuple(freq)].append(s);
         return list(track.values())
         
