@@ -1,102 +1,126 @@
 class LRUCache {
-    Map<Integer,DLLNode> cache;
-    DoublyLinkedList dll;
-    int totalSize;
+
+    Map<Integer,Node> track = new HashMap<>();
+    int totalCapacity;
+    DLL dl = new DLL();
 
     public LRUCache(int capacity) {
-        totalSize = capacity;
-        dll = new DoublyLinkedList();
-        cache = new HashMap();
+        totalCapacity = capacity;
     }
     
     public int get(int key) {
-        if(cache.containsKey(key)) {
-            DLLNode node = cache.get(key);
-            dll.moveToFront(node);
-            return cache.get(key).value;
-        }
-        return -1;
+        if(!track.containsKey(key)) {
+                return -1;
+            }
+        int value = track.get(key).data;
+        Node pushed = dl.pushNode(track.get(key));
+        track.put(key,pushed);
+        return value;
     }
     
     public void put(int key, int value) {
-        if(cache.containsKey(key)) {
-            DLLNode node = cache.get(key);
-            node.value = value;
-            dll.moveToFront(node);
+        if(track.containsKey(key)) {
+            Node updated = dl.updateNode(track.get(key),value);
+            track.put(key,updated);
         } else {
-            if(cache.size() == totalSize) {
-                int k = dll.getHead().key;
-                dll.evictLRUKey();
-                cache.remove(k);
+            if (track.size() == totalCapacity) {
+                int removedKey = dl.evictKey();
+                track.remove(removedKey);
             }
-            DLLNode node = dll.addElement(key,value);
-            cache.put(key,node);
+                Node na = dl.addNode(key, value);
+                track.put(key, na);
         }
     }
 
 }
 
-class DLLNode {
-    int key;
-    int value;
-    DLLNode prev;
-    DLLNode next;
+class DLL {
+    private Node head;
+    private Node tail;
 
-    public DLLNode(int key,int value) {
-        this.key = key;
-        this.value = value;
-    }
-}
-
-
-public class DoublyLinkedList {
-    private DLLNode head;
-    private DLLNode tail;
-
-    public DLLNode getHead() {
+    public Node getHead() {
         return head;
     }
-    
-    public DLLNode addElement(int key, int value) {
-        DLLNode temp = new DLLNode(key,value);
+
+    public Node getTail() {
+        return tail;
+    }
+
+    public Node addNode(int key, int value) {
         if(head == null) {
-            head = temp;
+            head = new Node(key,value);
             tail = head;
-        } else {
-            temp.prev = tail;
-            tail.next = temp;
-            tail = temp;
+            return head;
         }
-        return temp;
+
+        Node newNode = new Node(key,value);
+        tail.next = newNode;
+        newNode.prev = tail;
+        tail = newNode;
+        return newNode;
     }
 
-    public void evictLRUKey() {
-        if(head.next == null) {
-            head = null;
-        } else {
-            head = head.next;
-            head.prev = null;
-        }
-    
+    public Node updateNode(Node node,int value) {
+        node.data = value;
+        node = pushNode(node);
+        return node;
     }
 
-    public void moveToFront(DLLNode node) {
+    public Node pushNode(Node node) {
         if(head == tail || node.next == null) {
-            return;
+            return node;
         }
-        if(node.prev == null) {
+        Node pP = node.prev;
+        Node nP = node.next;
+        if(pP == null) {
             head = head.next;
             head.prev = null;
         } else {
-            node.prev.next = node.next;
-            node.next.prev = node.prev;
+            pP.next = nP;
+            nP.prev = pP;
         }
         tail.next = node;
         node.prev = tail;
         node.next = null;
         tail = node;
+
+        return node;
+    }
+
+    public int evictKey() {
+        if(head == null) return -1;
+        int removed;
+        if(head.next == null) {
+            removed = head.key;
+            head = null;
+            tail = null;
+        } else {
+            removed = head.key;
+            head = head.next;
+            head.prev = null;
+        }
+        return removed;
+    }
+
+
+}
+
+class Node {
+    Node next;
+    Node prev;
+    int key;
+    int data;
+
+    public Node(int key, int value) {
+        this.key = key;
+        this.data = value;
     }
 }
+
+
+
+
+
 
 /**
  * Your LRUCache object will be instantiated and called as such:
