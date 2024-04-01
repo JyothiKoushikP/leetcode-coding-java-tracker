@@ -1,3 +1,10 @@
+/*
+TC: O(n2)
+SC: O(1)
+Approach: for every index, store the count of the longest increasing subsequence and increase
+it along the way, keep a currMax to track it and when you are done, just return the map.get(currMax)
+*/
+
 class Solution {
     public int findNumberOfLIS(int[] nums) {
         int currMax = 1;
