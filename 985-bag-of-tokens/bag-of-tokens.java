@@ -3,6 +3,11 @@ Logic:
 Time Complexity: O(nlogn)
 Space Complexity: O(logn) -> sort
 Keep two pointers
+start and end
+only condition is Face-up and Face-down
+If Face-Up condition satisfies for start, add the score and increment the pointer
+else if face-down condition satisfies, add the token score from end (Maxium token weight) and decrement
+if none of the above two satisfies, just return the score
 */
 
 
@@ -14,14 +19,11 @@ class Solution {
        int maxScore = 0;
        int currScore = 0;
        while(start <= end) {
-            boolean FU1 = (power >= tokens[start]);
-            boolean FD1 = (currScore >= 1);
-            
-            if(FU1) {
+            if(power >= tokens[start]) {
                 currScore += 1;
                 power -= tokens[start];
                 start++;
-            } else if(FD1 && start != end) {
+            } else if(currScore >= 1 && start != end) {
                 currScore -= 1;
                 power += tokens[end];
                 end--;
