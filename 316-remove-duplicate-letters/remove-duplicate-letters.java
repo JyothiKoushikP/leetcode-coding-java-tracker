@@ -1,3 +1,12 @@
+/*
+Logic:
+if the character is unique add it to the Stack
+for that, pop till the stack top satisfies the condition:
+stack.top() < curr or stack.top() > curr and stack.top freq == 1
+maintain a frequency array to keep track of elements 
+*/
+
+
 class Solution {
     public String removeDuplicateLetters(String s) {
         int[] freq = new int[26];
