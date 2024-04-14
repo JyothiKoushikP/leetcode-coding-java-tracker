@@ -1,22 +1,24 @@
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-List<List<Integer>> result = new ArrayList<>();
+        List<List<Integer>> result = new ArrayList();
         Arrays.sort(nums);
-        for(int i = 0; i <= nums.length - 2 && nums[i] <= 0; i++) {
-            int mid = i+1, high = nums.length - 1;
-            if(i == 0 || nums[i-1] != nums[i]) {
+        int len = nums.length;
+        for(int low = 0; low <= nums.length - 3; low++) {
+            if(low == 0 || (low > 0 && nums[low] != nums[low-1])) {
+                int mid = low + 1, high = len - 1;
                 while(mid < high) {
-                    if(nums[i] + nums[mid] + nums[high] < 0) {
-                        mid++;
-                    } else if(nums[mid] + nums[i] + nums[high] > 0) {
+                    if(nums[low] + nums[mid] + nums[high] > 0) {
                         high--;
+                    } else if(nums[low] + nums[mid] + nums[high] < 0) {
+                        mid++;
                     } else {
-                        List<Integer> p = new ArrayList<>();
-                        p.add(nums[i]);
-                        p.add(nums[mid++]);
-                        p.add(nums[high--]);
-                        result.add(p);
-                        while (mid < high && nums[mid] == nums[mid - 1]) {
+                        List<Integer> entry = new ArrayList();
+                        entry.add(nums[low]);
+                        entry.add(nums[mid]);
+                        entry.add(nums[high]);
+                        result.add(entry);
+                        mid++;
+                        while(mid < high && nums[mid] == nums[mid-1]) {
                             mid++;
                         }
                     }
