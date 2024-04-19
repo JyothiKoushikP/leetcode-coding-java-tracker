@@ -1,3 +1,11 @@
+/*
+TC: O(n2)
+SC: O(1)
+Using the input array as the auxilary space
+Dynamic programming similar to minimum path sum
+*/
+
+
 class Solution {
     public int minFallingPathSum(int[][] matrix) {
         int result = Integer.MAX_VALUE;
@@ -24,5 +32,5 @@ class Solution {
             }
         }
             return result;
-        }
     }
+}
