@@ -13,6 +13,13 @@
  *     }
  * }
  */
+
+/* 
+TC: O(n)
+SC: O(logn)
+Recursive Approach for the same
+*/
+
 class Solution {
     public boolean hasPathSum(TreeNode root, int targetSum) {
         if(root == null) return false;
