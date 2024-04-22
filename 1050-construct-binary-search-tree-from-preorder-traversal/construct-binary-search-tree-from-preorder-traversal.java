@@ -24,8 +24,7 @@ class Solution {
 
     public TreeNode buildTree(int val, TreeNode node) {
         if(node == null) {
-            node = new TreeNode(val);
-            return node;
+            return new TreeNode(val);
         }
         if(val > node.val) {
             node.right = buildTree(val, node.right);
