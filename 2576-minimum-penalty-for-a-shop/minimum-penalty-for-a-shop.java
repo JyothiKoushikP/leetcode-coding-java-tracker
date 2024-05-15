@@ -1,6 +1,6 @@
-class Solution {
-    public int bestClosingTime(String customers) {
-        int[] prefix = new int[customers.length() + 1];
+/*
+Prefix and Suffix Sum -> O(n) O(n)
+int[] prefix = new int[customers.length() + 1];
         int[] suffix = new int[customers.length() + 1];
 
         int sum = 0;
@@ -30,7 +30,37 @@ class Solution {
                 minStart = i;
             }
         }
-        
+
         return minStart;
+*/
+
+
+class Solution {
+    public int bestClosingTime(String customers) {
+        int currPenalty = 0;
+
+        for(int i = 0; i < customers.length(); i++) {
+            char c = customers.charAt(i);
+            if(c == 'Y') {
+                currPenalty++;
+            }
+        }
+
+        int minPenalty = currPenalty, minTime = 0;
+        for(int i = 0; i < customers.length(); i++) {
+            char c = customers.charAt(i);
+            if(c == 'Y') {
+                currPenalty--;
+            } else {
+                currPenalty++;
+            }
+
+            if(currPenalty < minPenalty) {
+                currPenalty = minPenalty;
+                minTime = i + 1;
+            }
+        }
+
+        return minTime;
     }
 }
