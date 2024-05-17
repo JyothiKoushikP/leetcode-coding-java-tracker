@@ -35,36 +35,20 @@ class Solution {
     }
 
     public void swap(TreeNode node,int[] swapArray) {
-        if(node.left == null && node.right == null) {
-            if(node.val == swapArray[0]) {
-                node.val = swapArray[1];
-                int temp = swapArray[0];
-                swapArray[0] = swapArray[1];
-                swapArray[1] = temp;
-            } else if(node.val == swapArray[1]) {
-                node.val = swapArray[0];
+        if (node.left == null && node.right == null || node.val == swapArray[0] || node.val == swapArray[1]) {
+            if (node.val == swapArray[0] || node.val == swapArray[1]) {
+                node.val = node.val == swapArray[0] ? swapArray[1] : swapArray[0];
                 int temp = swapArray[0];
                 swapArray[0] = swapArray[1];
                 swapArray[1] = temp;
             }
-            return;
         }
-        if(node.val == swapArray[0]) {
-                node.val = swapArray[1];
-                int temp = swapArray[0];
-                swapArray[0] = swapArray[1];
-                swapArray[1] = temp;
-        } else if(node.val == swapArray[1]) {
-                node.val = swapArray[0];
-                int temp = swapArray[0];
-                swapArray[0] = swapArray[1];
-                swapArray[1] = temp;
+
+        if (node.left != null) {
+            swap(node.left, swapArray);
         }
-        if(node.left != null) {
-            swap(node.left,swapArray);
-        }
-        if(node.right != null) {
-            swap(node.right,swapArray);
+        if (node.right != null) {
+            swap(node.right, swapArray);
         }
     }
 
