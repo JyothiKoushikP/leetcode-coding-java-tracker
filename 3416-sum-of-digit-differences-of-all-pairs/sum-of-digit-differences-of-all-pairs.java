@@ -14,7 +14,6 @@ class Solution {
 
         long sum = 0L;
         for(int[] row: result) {
-            Arrays.sort(row);
             Map<Integer,Integer> track = new HashMap<>();
             for(int i: row) {
                 track.put(i,track.getOrDefault(i,0) + 1);
