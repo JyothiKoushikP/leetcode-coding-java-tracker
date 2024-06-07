@@ -3,8 +3,8 @@ class Solution {
         int count = 0;
         for(int i = 0; i < grid.length; i++) {
             for(int j = 0; j < grid[0].length; j++) {
-                if(grid[i][j] != '0' && grid[i][j] != '@') {
-                    calculateIsland(grid,i,j);
+                if(grid[i][j] == '1') {
+                    dfs(grid, i, j);
                     count++;
                 }
             }
@@ -12,17 +12,19 @@ class Solution {
         return count;
     }
 
-    public void calculateIsland(char[][] map,int r, int c) {
-        if(r < 0 || r >= map.length || c < 0 || c >= map[0].length) {
+    public void dfs(char[][] grid, int row, int column) {
+        int[][] dirs = new int[][]{{-1,0},{1,0},{0,1},{0,-1}};
+        if(row < 0 || row >= grid.length || column < 0 || column >= grid[0].length) {
             return;
         }
-        if(map[r][c] == '0' || map[r][c] == '@') {
+        if(grid[row][column] == '1') {
+            grid[row][column] = 'X';
+        } else {
             return;
         }
-        int[][] dir = new int[][]{{0,1},{1,0},{0,-1},{-1,0}};
-        for(int[] directions: dir) {
-            map[r][c] = '@';
-            calculateIsland(map,r + directions[0],c + directions[1]);
+        for(int[] dir: dirs) {
+            dfs(grid,row + dir[0],column + dir[1]);
         }
+        return;
     }
 }
