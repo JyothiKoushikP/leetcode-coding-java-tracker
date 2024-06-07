@@ -1,3 +1,11 @@
+/*
+Intuition:
+Put all the numbers in a HashSet
+if the number - 1 is present in the hashset, it means the sequence is present before int
+so dont check
+otherwise traverse and keep track of the maxLen
+*/
+
 class Solution {
     public int longestConsecutive(int[] arr) {
        Set<Integer> a = new HashSet<>();
@@ -19,3 +27,4 @@ class Solution {
        return maxLen;
     }
 }
+
