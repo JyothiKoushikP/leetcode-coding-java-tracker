@@ -1,20 +1,19 @@
 class Solution {
     public int findKthLargest(int[] nums, int k) {
-        Map<Integer, Integer> frequencyMap = new HashMap<>();
-        for (int element : nums) {
-            frequencyMap.put(element, frequencyMap.getOrDefault(element, 0) + 1);
+        Map<Integer,Integer> freq = new HashMap<>();
+        int maxValue = 0;
+        for(int i: nums) {
+            freq.put(i, freq.getOrDefault(i, 0) + 1);
+            maxValue = Math.max(maxValue, i);
         }
-        List<Integer> sortedList = new ArrayList<>(frequencyMap.keySet());
-        Collections.sort(sortedList, (a, b) ->  b - a);
-
-        for (int element : sortedList) {
-            int freq = frequencyMap.get(element);
-            if(freq >= k) {
-                return element;
+        while(k > 0) {
+            int x = freq.getOrDefault(maxValue,0);
+            k -= x;
+            if(k <= 0) {
+                return maxValue;
             }
-            k -= freq;
+            maxValue--;
         }
-        
-        return 0;
+        return maxValue;
     }
 }
