@@ -1,3 +1,8 @@
+/*
+Intuition
+Sliding Window + Binary Search
+*/
+
 class Solution {
     public int longestRepeatingSubstring(String s) {
         int i = s.length();
