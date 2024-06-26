@@ -5,6 +5,11 @@
 #         self.left = left
 #         self.right = right
 
+'''
+Approach:
+BFS with col colTrack
+'''
+
 from collections import deque
 
 class Solution(object):    
@@ -24,7 +29,7 @@ class Solution(object):
         curr = 1
         n = 0
         q.append([0,root])
-        
+
         while len(q) > 0:
             l = q.popleft()
             curr -= 1
