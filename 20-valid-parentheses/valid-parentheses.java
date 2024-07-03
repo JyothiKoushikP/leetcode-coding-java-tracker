@@ -1,21 +1,21 @@
 class Solution {
     public boolean isValid(String s) {
-        Stack<Character> paranthesis = new Stack<>();
+        Map<Character,Character> brackets = new HashMap();
+        brackets.put(')','(');
+        brackets.put(']','[');
+        brackets.put('}','{');
+        Stack<Character> p = new Stack<>();
         for(char c: s.toCharArray()) {
-            if(c == '(' || c == '{' || c == '[') {
-                paranthesis.push(c);
-            } else  {
-                if(paranthesis.isEmpty()) {
+            if(c == '[' || c == '{' || c == '(') {
+                p.push(c);
+            } else {
+                if(p.isEmpty() || p.peek() != brackets.get(c)) {
                     return false;
-                }
-
-                if((paranthesis.peek() == '(' && c == ')') || (paranthesis.peek() == '{' && c == '}') || (paranthesis.peek() == '[' && c == ']')) {
-                    paranthesis.pop();
                 } else {
-                    return false;
+                    p.pop();
                 }
             }
         }
-        return paranthesis.isEmpty();
+        return p.isEmpty() ? true: false;
     }
 }
