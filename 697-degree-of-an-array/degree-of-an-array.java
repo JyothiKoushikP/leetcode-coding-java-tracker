@@ -1,32 +1,29 @@
 class Solution {
     public int findShortestSubArray(int[] nums) {
-        int max = Integer.MIN_VALUE;
-        HashMap<Integer,int[]> result = new HashMap();
+        Map<Integer,Integer> freq = new HashMap<>();
+        Map<Integer,int[]> positions = new HashMap<>();
+        int degree = 0;
         for(int i = 0; i < nums.length; i++) {
-            if(!result.containsKey(nums[i])) {
-                int[] info = new int[3];
-                info[0]++;
-                max = Math.max(max,info[0]);
-                info[1] = i;
-                info[2] = i;
-                result.put(nums[i],info);
+            int x = nums[i];
+            freq.put(x, freq.getOrDefault(x,0) + 1);
+            degree = Math.max(degree, freq.get(x));
+            if(!positions.containsKey(x)) {
+                positions.put(x, new int[]{-1,-1});
+            }
+            if(positions.get(x)[0] == -1) {
+                positions.get(x)[0] = i;
+                positions.get(x)[1] = i;
             } else {
-                int[] info = result.get(nums[i]);
-                info[0]++;
-                max = Math.max(max,info[0]);
-                info[2] = i;
-                result.put(nums[i],info);
+                positions.get(x)[1] = i;
             }
         }
-
-        int window = Integer.MAX_VALUE;
-        for(int i: result.keySet()) {
-            int[] info = result.get(i);
-            if(info[0] == max) {
-                window = Math.min(window,(info[2]-info[1]) + 1);
+        int leastDistance = Integer.MAX_VALUE;
+        for(int i: positions.keySet()) {
+            int[] pos = positions.get(i);
+            if(freq.get(i) == degree) {
+                leastDistance = Math.min(pos[1]-pos[0] + 1,leastDistance);
             }
         }
-
-        return window;
+        return leastDistance;
     }
 }
