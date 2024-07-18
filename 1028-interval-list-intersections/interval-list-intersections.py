@@ -1,3 +1,8 @@
+'''
+2 pointer algorithm
+make sure of the intervals
+'''
+
 class Solution(object):
     def intervalIntersection(self, firstList, secondList):
         result = []
